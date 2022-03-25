@@ -10,7 +10,7 @@ router.get('/:username', async (req, res) => {
   const params = {
     TableName: DB_NAME,
     Key: {
-      username,
+      username,  
     },
   };
   try {

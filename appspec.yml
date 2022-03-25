@@ -1,0 +1,59 @@
+version: 0.0
+
+os: linux
+
+files:
+
+– source: .
+
+destination: /home/ubuntu/blog_app
+
+hooks:
+
+ApplicationStop:
+
+– location: scripts/application_stop.sh
+
+timeout: 300
+
+runas: ubuntu
+
+ApplicationStart:
+
+– location: scripts/application_start.sh
+
+timeout: 300
+
+runas: ubuntu
+
+Github uses aws.yml file to manage Github actions.
+
+scripts/application_start.sh
+
+#!/bin/bash
+
+# give permission to the files inside /secure_docs directory
+
+sudo chmod -R 777 /home/ubuntu/blog_app
+
+# navigate into current working directory
+
+cd /home/ubuntu/blog_app
+
+# install node modules
+
+npm install
+
+# start our node app in the background using pm2
+
+sudo pm2 start ‘npm start.’
+
+scripts/application_stop.sh
+
+#!/bin/bash
+
+# stop existing node servers
+
+echo “Stopping any existing node servers.”
+
+PKILL node
