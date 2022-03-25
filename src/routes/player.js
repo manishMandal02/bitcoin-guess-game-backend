@@ -83,11 +83,24 @@ router.post('/usernameAvailability', async (req, res) => {
 //@access public
 router.put('/', async (req, res) => {
   const username = req.body.username;
+  const score = req.body.score;
+  const params = {
+    TableName: DB_NAME,
+    Item: {
+      username,
+      score,
+    },
+  };
+  try {
+    await dynamoClient.put(params).promise();
 
-  // TODO:
-
-  res.status(200);
-  res.json({ message: 'success' });
+    res.status(200);
+    res.json({ score, message: 'success' });
+  } catch (err) {
+    res.status(500);
+    console.log(err.message);
+    res.json({ error: err.message });
+  }
 });
 
 module.exports = router;
