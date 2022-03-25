@@ -1,0 +1,53 @@
+name: Automate Deploy to Amazon EC2 using Github actions
+
+on:
+
+push:
+
+branches: [ master ]
+
+jobs:
+
+deploy:
+
+runs-on: ubuntu-latest
+
+steps:
+
+# Step 1
+
+– name: Checkout to repo
+
+uses: actions/checkout@v2
+
+# Step 2
+
+– name: Configure AWS credentials
+
+uses: aws-actions/configure-aws-credentials@v1
+
+with:
+
+aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+
+aws-secret-access-key: ${{ secrets.AWS_ACCESS_KEY_SECRET }}
+
+aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+# Step 3
+
+– name: Create CodeDeploy Deployment
+
+id: deploy
+
+run: |
+
+aws deploy create-deployment \
+
+–application-name 	node-bitcoin-game \
+
+–deployment-group-name node-bitcoin-game-deploy \
+
+–deployment-config-name CodeDeployDefault.OneAtATime \
+
+–github-location repository=${{ github.repository }},commitId=${{ github.sha }}
