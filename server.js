@@ -19,7 +19,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res, next) => {
-  res.send('Server is running');
+  res.send('Server is running...');
 });
 
 app.use('/api/bitcoinPrice', priceRoutes);
