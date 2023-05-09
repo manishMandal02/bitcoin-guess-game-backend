@@ -23,7 +23,9 @@ app.use(
 app.use(express.json());
 
 // db config
-await connectDB();
+(async () => {
+  await connectDB();
+})();
 
 app.get('/', (req, res, next) => {
   res.send('Server is running...');
