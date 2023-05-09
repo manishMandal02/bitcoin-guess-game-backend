@@ -9,11 +9,13 @@ router.get('/', async (req, res) => {
     // const { data } = await axios(`https://coinmarketcap.com/currencies/bitcoin/`);
     // const $ = cheerio.load(data, null, false);
     // const price = $('div .priceValue > span').text();
-    const { data } = await axios(`https://www.livecoinwatch.com`);
+    const { data } = await axios(`https://www.livecoinwatch.com/price/Bitcoin-BTC`);
     const $ = cheerio.load(data, null, false);
-    const selector = `#__next > div > div.content-hack > main > div.d-flex.justify-content-center > div > div.d-flex.flex-row.col-12.px-0.bordered-mob-table > div.lcw-table-container.main-table > table > tbody > tr:nth-child(1) > td.filter-item.table-item.main-price`;
-    price = $(selector).text();
-    price = Number(price.slice(1));
+    price = $('.price').text().split('$')[1];
+
+    console.log('🚀 ~ file: bitcoinPrice.js:16 ~ router.get ~ price:', price);
+
+    price = Number(price);
     res.json({ price: price });
   } catch (err) {
     console.log(err);
