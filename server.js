@@ -14,7 +14,11 @@ dotenv.config();
 // config AWS sdk for dynamodb
 // configDB();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: 'https://bitcoin-game.vercel.app/',
+  })
+);
 
 app.use(express.json());
 
