@@ -23,7 +23,7 @@ app.use(
 app.use(express.json());
 
 // db config
-connectDB();
+await connectDB();
 
 app.get('/', (req, res, next) => {
   res.send('Server is running...');

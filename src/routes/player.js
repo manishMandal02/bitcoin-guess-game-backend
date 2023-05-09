@@ -73,13 +73,7 @@ router.post('/usernameAvailability', async (req, res) => {
 router.put('/', async (req, res) => {
   const username = req.body.username;
   const score = req.body.score;
-  const params = {
-    TableName: DB_NAME,
-    Item: {
-      username,
-      score,
-    },
-  };
+
   try {
     const user = await User.findOne({ username });
     user.score = score;
