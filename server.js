@@ -16,7 +16,7 @@ dotenv.config();
 
 app.use(
   cors({
-    origin: 'https://bitcoin-game.vercel.app/',
+    origin: 'https://bitcoin-game.vercel.app',
   })
 );
 
